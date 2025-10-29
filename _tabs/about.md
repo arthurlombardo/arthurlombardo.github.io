@@ -4,8 +4,12 @@ icon: fas fa-info-circle
 order: 4
 ---
 
-> Add Markdown syntax content to file `_tabs/about.md`{: .filepath } and it will show up on this page.
-{: .prompt-tip }
+# Current Position
+
+I am currently a PhD student working in the [D-DAL team](https://ddal.inria.fr) on Efficient Enumeration via Edits under the supervision of [Antoine Amarilli](https://a3nm.net), Mikaël Monet and Pierre Senellart.
+
+
+
 
 > Coucou Oliver
 {: .prompt-tip}
