@@ -16,17 +16,12 @@ timezone:
 
 title: Arthur Lombardo # the main title
 
-tagline: tagline # it will display as the subtitle
-
-description: >- # used by seo meta and the atom feed
-  A brief description of your site goes here.
 
 # Fill in the protocol & hostname for your site.
 # E.g. 'https://username.github.io', note that it does not end with a '/'.
-url: "https://arthurlombardo.github.io"
 
 github:
-  username: github_username # change to your GitHub username
+  username: arthurlombardo # change to your GitHub username
 
 twitter:
   username: twitter_username # change to your Twitter username
