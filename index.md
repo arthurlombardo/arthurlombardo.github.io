@@ -2,7 +2,6 @@
 layout: home
 icon: fas fa-info-circle
 order: 4
-paginate: true
 ---
 
 # Current Position
