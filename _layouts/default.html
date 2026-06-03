@@ -29,7 +29,7 @@ layout: compress
 
 <pre style="background: #eee; padding: 10px;">
 layout: {{layout.layout}}
-layout=default: {%if layout.layout == 'default'}{{1}}{% else%}{{2}}
+layout=default: {%if layout.layout == 'default' %}{{1}}{% else %}{{2}}{% endif %}
 content: {{content}}
 </pre>
 
