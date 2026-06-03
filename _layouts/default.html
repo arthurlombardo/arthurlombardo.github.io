@@ -26,11 +26,11 @@ layout: compress
         <div class="row flex-grow-1">
           <main aria-label="Main Content" class="col-12 col-lg-11 col-xl-9 px-md-4">
 
-Debug: layout.layout = {{layout.layout}}
-
 
 <pre style="background: #eee; padding: 10px;">
 layout: {{layout.layout}}
+layout=default: {{layout.layout == 'default'}}
+content: {{content}}
 </pre>
 
             {% if layout.layout == 'default' %}
