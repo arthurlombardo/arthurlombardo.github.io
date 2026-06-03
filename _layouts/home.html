@@ -4,12 +4,17 @@ layout: default
 
 {% include lang.html %}
 
+
 {% assign all_pinned = site.posts | where: 'pin', 'true' %}
 {% assign all_normal = site.posts | where_exp: 'item', 'item.pin != true and item.hidden != true' %}
 
 {% assign posts = '' | split: '' %}
 
 <!-- Get pinned posts on current page -->
+<pre style="background: #eee; padding: 10px;">
+all_pinned: {{all_pinned}}
+all_normal: {{all_normal}}
+</pre>
 
 {% assign visible_start = paginator.page | minus: 1 | times: paginator.per_page %}
 {% assign visible_end = visible_start | plus: paginator.per_page %}
