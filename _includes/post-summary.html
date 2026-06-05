@@ -1,39 +1,18 @@
-{%- comment -%}
-  Get the post's description or body content.
-
-  Arguments:
-    full_text: If true, return the full content. Default is false.
-    max_length: The maximum length of the returned content. Default is 200.
-{%- endcomment -%}
-
-{%- if post.description and include.full_text != true -%}
-  {{- post.description -}}
-{%- else -%}
-  {%- comment -%} Remove the line numbers from the code snippet. {%- endcomment -%}
-
-  {%- assign content = post.content -%}
-
-  {%- if content contains '<td class="rouge-gutter gl"><pre class="lineno">' -%}
-    {%- assign content = content
-      | replace: '<td class="rouge-gutter gl"><pre class="lineno">',
-        '<!-- <td class="rouge-gutter gl"><pre class="lineno">'
-    -%}
-    {%- assign content = content | replace: '</td><td class="rouge-code">', '</td> --><td class="rouge-code">' -%}
-  {%- endif -%}
-
-  {%- assign content = content
-    | markdownify
-    | strip_html
-    | newline_to_br
-    | replace: '<br />', ' '
-    | strip_newlines
-    | strip
-  -%}
-
-  {%- unless include.full_text -%}
-    {%- assign max_length = include.max_length | default: 200 -%}
-    {%- assign content = content | truncate: max_length -%}
-  {%- endunless -%}
-
-  {{- content -}}
-{%- endif -%}
+ {% if post.authors and post.authors.size > 0 %}
+  <div class="post-authors" style="font-size: 0.9rem; margin: 0.2rem 0 0.5rem 0;">
+    {% assign author_names = "" %}
+    {% for author_id in post.authors %}
+      {% assign author = site.data.authors[author_id] %}
+      {% if author %}
+        {% if author.url %}
+          <a href="{{ author.url }}" target="_blank" rel="noopener noreferrer">{{ author.name }}</a>
+        {% else %}
+          {{ author.name }}
+        {% endif %}
+        {% unless forloop.last %}, {% endunless %}
+      {% else %}
+        {{ author_id }}{% unless forloop.last %}, {% endunless %}
+      {% endif %}
+    {% endfor %}
+  </div>
+{% endif %}
