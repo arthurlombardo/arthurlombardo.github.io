@@ -11,10 +11,8 @@ layout:
 tabs:
   # format: <filename_without_extension>: <value>
   home: Home
-  categories: Categories
-  tags: Tags
+  talks: Talks
   archives: Archives
-  about: About
 
 # the text displayed in the search bar & search results
 search:

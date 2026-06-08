@@ -1,5 +1,5 @@
-{% if post.conf %}
-    {% assign conf = site.data.conferences[post.conf] %}
+{% if include.conf %}
+    {% assign conf = site.data.conferences[include.conf] %}
         {% if conf.name %}
             {{conf.name}}
         {% endif %}
