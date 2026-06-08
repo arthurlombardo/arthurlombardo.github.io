@@ -1,0 +1,16 @@
+{% if post.conf %}
+    {% assign conf = site.data.conferences[post.conf] %}
+        {% if conf.name %}
+            {{conf.name}}
+        {% endif %}
+        <br>
+        {% if conf.city %}
+            {{conf.city}}
+        {% endif %}
+        {% if conf.country and conf.city %}
+            ,&nbsp;
+        {% endif %}
+        {% if conf.country %}
+            {{conf.country}}
+        {% endif %}
+{% endif %}

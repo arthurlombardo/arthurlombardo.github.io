@@ -7,4 +7,5 @@ description: "An S-Hamiltonian Cycle is a relaxation of a Hamiltonian cycle wher
 authors: [amarilli, lombardo, monet]
 type: paper
 pdf: "/assets/pdfs/The-S-Hamiltonian-Cycle-Problem.pdf"
+conf: "wg2026"
 ---

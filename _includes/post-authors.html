@@ -1,5 +1,5 @@
  {% if post.authors and post.authors.size > 0 %}
-  <div class="post-authors" style="font-size: 0.9rem; margin: 0.2rem 0 0.5rem 0;">
+  <div class="post-authors" style="font-size: 0.9rem;">
     {% assign author_names = "" %}
     {% for author_id in post.authors %}
       {% assign author = site.data.authors[author_id] %}
@@ -9,7 +9,7 @@
         {% else %}
           {{ author.name }}
         {% endif %}
-        {% unless forloop.last %}, {% endunless %}
+        {% unless forloop.last %},&nbsp;{% endunless %}
       {% else %}
         {{ author_id }}{% unless forloop.last %}, {% endunless %}
       {% endif %}
