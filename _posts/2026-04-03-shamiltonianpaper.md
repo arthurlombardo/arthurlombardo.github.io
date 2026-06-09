@@ -8,5 +8,4 @@ authors: [amarilli, lombardo, monet]
 type: paper
 pdf: "/assets/pdfs/The-S-Hamiltonian-Cycle-Problem.pdf"
 conf: "wg2026"
-slug: "shamiltonianpaper"
 ---

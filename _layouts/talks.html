@@ -1,92 +1,52 @@
 ---
-layout: default
+layout: page
+# The Archives of posts.
 ---
 
 {% include lang.html %}
 
-{{content}}
 
 {% assign posts = site.posts | where_exp: 'item', 'item.hidden != true and item.type == "talk"' %}
 
-<div id="post-list" class="flex-grow-1 px-xl-1">
+{% assign df_strftime_m = site.data.locales[lang].df.archives.strftime | default: '/ %m' %}
+{% assign df_dayjs_m = site.data.locales[lang].df.archives.dayjs | default: '/ MM' %}
+<div id="archives" class="pl-xl-3">
   {% for post in posts %}
-    {% assign merged = post | inherit_from_ref: "paper" %}
-    <article class="card-wrapper card">
-      <div class="post-preview row g-0 flex-md-row-reverse">
-        {% assign card_body_col = '12' %}
+    {% assign cur_year = post.date | date: '%Y' %}
 
-        {% if merged.image %}
-          {% assign src = merged.image.path | default: merged.image %}
+    {% if cur_year != last_year %}
+      {% unless forloop.first %}</ul>{% endunless %}
 
-          {% if merged.media_subpath %}
-            {% unless src contains '://' %}
-              {% assign src = merged.media_subpath
-                | append: '/'
-                | append: src
-                | replace: '///', '/'
-                | replace: '//', '/'
-              %}
-            {% endunless %}
-          {% endif %}
+      <time class="year lead d-block">{{ cur_year }}</time>
+      {{ '<ul class="list-unstyled">' }}
 
-          {% if merged.image.lqip %}
-            {% assign lqip = merged.image.lqip %}
+      {% assign last_year = cur_year %}
+    {% endif %}
 
-            {% if merged.media_subpath %}
-              {% unless lqip contains 'data:' %}
-                {% assign lqip = merged.media_subpath
-                  | append: '/'
-                  | append: lqip
-                  | replace: '///', '/'
-                  | replace: '//', '/'
-                %}
-              {% endunless %}
-            {% endif %}
-
-            {% assign lqip_attr = 'lqip="' | append: lqip | append: '"' %}
-          {% endif %}
-
-          {% assign alt = merged.image.alt | xml_escape | default: 'Preview Image' %}
-
-          <div class="col-md-5">
-            <img src="{{ src }}" alt="{{ alt }}" {{ lqip_attr }}>
+    <li>
+      {% assign ts = post.date | date: '%s' %}
+      <span class="date day" data-ts="{{ ts }}" data-df="DD">{{ post.date | date: '%d' }}</span>
+      <span class="date month small text-muted ms-1" data-ts="{{ ts }}" data-df="{{ df_dayjs_m }}">
+        {{ post.date | date: df_strftime_m }}
+      </span>
+      
+     <div class="post-meta">
+    <div class="post-title">{{ post.title }}</div>
+    <div class="post-date" {% unless post.slides %} style="margin-bottom: 0.3rem"{% endunless %}>{{ post.date | date: "%B %d, %Y" }}</div>
+    
+    <div class="post-meta-row">
+      <div class="post-place">{{ post.place }}</div>
+        {% if post.slides %}
+          <div class="pdf-download">
+            <a href="{{ post.slides | relative_url }}" target="_blank" rel="noopener noreferrer" class="pdf-button">
+              <i class="fa-regular fa-file"></i> Slides
+            </a>
           </div>
-
-          {% assign card_body_col = '7' %}
         {% endif %}
-
-        <div class="col-md-{{ card_body_col }}">
-          <div class="card-body d-flex flex-column">
-            <h1 class="card-title my-2 mt-md-0">{{ merged.title }}</h1>
-
-              <div class="card-text content mb-3 mt-0">
-                {% comment %} Pass merged to the include, but the include probably uses `post` – you may need to adapt post-conf.html to use `include.conf` or similar. For now it will use the original `post` variable. To be safe, we reassign `post` temporarily? No, let's keep as is, but consider modifying post-conf.html to accept a parameter. {% endcomment %}
-                <p>{% include post-conf.html conf=merged.conf lang=lang %}</p>
-              </div>
-
-            <div class="post-meta flex-grow-1 d-flex align-items-end">
-              <div class="me-auto">
-                <i class="far fa-calendar fa-fw me-1"></i>
-                {% include datetime.html date=merged.date lang=lang %}
-
-                {% if merged.categories.size > 0 %}
-                  <i class="far fa-folder-open fa-fw me-1"></i>
-                  <span class="categories">
-                    {% for category in merged.categories %}
-                      {{ category }}{%- unless forloop.last -%},{%- endunless -%}
-                    {% endfor %}
-                  </span>
-                {% endif %}
-              </div>
-
-                <p>{% include post-downloads.html pdf=merged.slides lang=lang%}</p>
-            </div>
-            <!-- .post-meta -->
-          </div>
-          <!-- .card-body -->
-        </div>
       </div>
-    </article>
+    </div>
+    </li>
+
+    {% if forloop.last %}</ul>{% endif %}
   {% endfor %}
 </div>
-<!-- #post-list -->
